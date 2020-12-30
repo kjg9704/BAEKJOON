@@ -1,12 +1,10 @@
-package BAEKJOON;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Queue;
 
 
-public class BOJ9372 {
+public class Main {
 	static int count;
 	public static class GraphNode{
 		LinkedList<Integer> list[];

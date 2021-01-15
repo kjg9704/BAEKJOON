@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Main {
 	static ArrayList<ArrayList<Integer>> list;
 	static ArrayList<Integer> depths;
-	static void DFS(int root, int parent, int depth) {
+/*	static void DFS(int root, int parent, int depth) {
 		boolean isLeaf = false;
 		for(int i = 1; i <= list.get(root).size(); i++) {
 			int next = list.get(root).get(i - 1);
@@ -18,9 +18,23 @@ public class Main {
 		if(!isLeaf) {
 			depths.add(depth);
 		}
+	} */
+	static void DFS(int root, int parent, int depth) {
+		int size = list.get(root).size();
+		if(size == 1 && depth != 0) {
+			depths.add(depth);
+		}
+		else {
+			for(int i = 1; i <= size; i++) {
+				int next = list.get(root).get(i - 1);
+				if(next != parent) {
+					DFS(next, root, depth + 1);
+					}
+			}
+		}
 	}
 	public static void main(String[] args)throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));   
 		int N = Integer.parseInt(br.readLine());
 		list = new ArrayList<ArrayList<Integer>>();
 		depths = new ArrayList<Integer>();

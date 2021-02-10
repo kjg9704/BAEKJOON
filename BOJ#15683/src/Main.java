@@ -53,6 +53,7 @@ public class Main {
 					bruteForce(list);
 					reset(now, j);
 				}
+				list.add(now);
 				break;
 			case 2:
 				for(int j = 0; j < 2; j++) {
@@ -62,6 +63,7 @@ public class Main {
 					reset(now, j);
 					reset(now, j + 2);
 				}
+				list.add(now);
 				break;
 			case 3:
 				for(int j = 0; j < 4; j++) {
@@ -71,6 +73,7 @@ public class Main {
 					reset(now, j);
 					reset(now, (j + 1) % 4);
 				}
+				list.add(now);
 				break;
 			case 4:
 				for(int j = 0; j < 4; j++) {
@@ -82,6 +85,7 @@ public class Main {
 					reset(now, (j + 1) % 4);
 					reset(now, (j + 2) % 4);
 				}
+				list.add(now);
 				break;
 			case 5:
 				for(int j = 0; j < 4; j++) {
@@ -98,13 +102,6 @@ public class Main {
 					if(j == 0) cnt++;
 				}
 			}
-			for(int[] i : matrix) {
-				for(int j : i) {
-					System.out.print(j + " ");
-				}
-				System.out.println();
-			}
-			System.out.println(cnt);
 			result = Math.min(result, cnt);
 		}
 	}

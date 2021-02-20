@@ -1,45 +1,27 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 public class BOJ1463 {
-	static int [] array;
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int num = sc.nextInt();
-        array = new int[num+1];
-		System.out.println(dp(num));
-		sc.close();
-	}
-	static int dp(int num) {
-		if(num == 1) {
-			return 0;
-		}
-		if(array[num] > 0) {
-			return array[num];
-		}
-		array[num] = dp(num - 1) + 1;
-		if(num%3 == 0) {
-			array[num] = Math.min(array[num], dp(num/3) + 1);
-		}
-		if(num%2 == 0) {
-			array[num] = Math.min(array[num], dp(num/2) + 1);
-		}
-		return array[num];
-	}
-}
 
-/*
-if(num%3 != 0 && num%2 ==1) {
-	array[num] = dp(num - 1) + 1;
+	public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int num = Integer.parseInt(br.readLine());
+        int[] dp = new int[num+1];
+        dp[0] = 0;
+        dp[1] = 0;
+        if(num > 1) {
+        	dp[2] = 1;
+        }
+        for(int i = 3; i <= num; i++) {
+        	dp[i] = dp[i - 1] + 1;
+        	if(i % 3 == 0) {
+        		dp[i] = Math.min(dp[i], dp[i / 3] + 1);
+        	}
+        	if(i % 2 == 0) {
+        		dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+        	}
+        }
+		System.out.println(dp[num]);
+		br.close();
+	}
 }
-else if(num%3 == 0 && num%2 == 1) {
-	array[num] = dp(num/3) + 1;
-}
-else if(num%3 != 0 && num%2 == 0) {
-	array[num] =  Math.min(dp(num / 2), dp(num - 1)) + 1;
-}
-else if(num%3 == 0 && num % 2 == 0) {
-	array[num] = Math.min(dp(num / 3), dp(num / 2)) + 1;
-}
-else {
-	array[num] = dp(num - 1) + 1;
-}
-*/

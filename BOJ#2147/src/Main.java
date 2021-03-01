@@ -84,7 +84,7 @@ public class Main {
 					Robot robot = robots.get(bot);
 					int nextX = robot.x + dx[robot.direction];
 					int nextY = robot.y + dy[robot.direction];
-					if(nextX <= 0 || nextY <= 0 || nextX > A || nextY > B) {
+					if(nextX <= 0 || nextY <= 0 || nextX > B || nextY > A) {
 						System.out.println("Robot " + bot + " crashes into the wall");
 						return;
 					}else {

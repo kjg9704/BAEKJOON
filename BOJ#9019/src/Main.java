@@ -58,8 +58,9 @@ public class Main {
 					visited[next] = true;
 				}
 			}
-			bw.flush();
+			
 		}
+		bw.flush();
 		br.close();
 		bw.close();
 	}

@@ -9,12 +9,11 @@ import java.io.InputStreamReader;
  *
  */
 public class Main {
-	
+
 	static int N;
 	static int[] inOrder;
 	static int[] postOrder;
 	static int[] preOrder;
-	static boolean[] visited;
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
@@ -22,7 +21,6 @@ public class Main {
 		inOrder = new int[N];
 		postOrder = new int[N];
 		preOrder = new int[N];
-		visited = new boolean[N + 1];
 		temp = br.readLine().split(" ");
 		for(int i = 0; i < N; i++) {
 			inOrder[i] = Integer.parseInt(temp[i]);
@@ -36,40 +34,23 @@ public class Main {
 		for(int i = 0; i < N; i++) {
 			if(inOrder[i] == root) rootIndex = i;
 		}
-		preOrder(root, rootIndex, N - 1);
-		
-		
+		preOrder(0, N - 1, 0, N - 1);
+
 	}
-	
-	static void preOrder(int root, int rootIndex, int postRootIndex) {
-//		visited[root] = true;
-		if(rootIndex == 0) {
-			System.out.print(root + " ");
-		}else {
-			int leftRoot = postOrder[rootIndex - 1];
-			int leftRootIndex = 0;
-			for(int i = 0; i < rootIndex; i++) {
-				if(inOrder[i] == leftRoot) {
-					leftRootIndex = i;
-					break;
-				}
+
+	static void preOrder(int inStart, int inEnd, int poStart, int poEnd) {
+		if(inStart > inEnd || poStart > poEnd) return;
+		int root = postOrder[poEnd];
+		System.out.print(root + " ");
+		int rootIndex = 0;
+		for(int i = 0; i < N; i++) {
+			if(inOrder[i] == root) {
+				rootIndex = i;
+				break;
 			}
-			int rightRoot = postOrder[postRootIndex - 1];
-			int rightRootIndex = 0;
-			for(int i = rootIndex + 1; i < N; i++) {
-				if(inOrder[i] == rightRoot) {
-					rightRootIndex = i;
-					break;
-				}
-			}
-			System.out.print(root + " ");
-				if(rootIndex > postRootIndex) {
-					preOrder(leftRoot, rightRoot, postRootIndex - 1);
-				}else {
-					preOrder(leftRoot, leftRootIndex, rootIndex - 1);
-				}
-				preOrder(rightRoot, rightRootIndex, postRootIndex - 1);
 		}
+		preOrder(inStart, rootIndex - 1, poStart, rootIndex - inStart + poStart - 1);
+		preOrder(rootIndex + 1, inEnd, rootIndex - inStart + poStart, poEnd - 1);
 	}
 
 }

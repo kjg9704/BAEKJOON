@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.PriorityQueue;
-import java.util.TreeMap;
 
 public class Main {
 
@@ -12,7 +12,9 @@ public class Main {
 		int T = Integer.parseInt(br.readLine());
 		for(int i = 0; i < T; i++) {
 			PriorityQueue<Integer> que = new PriorityQueue<>();
-			TreeMap<Integer, Integer> map = new TreeMap<>();
+			PriorityQueue<Integer> que2 = new PriorityQueue<>(Collections.reverseOrder());
+			PriorityQueue<Integer> deletedQue = new PriorityQueue<>();
+			PriorityQueue<Integer> deletedQue2 = new PriorityQueue<>(Collections.reverseOrder());
 			int k = Integer.parseInt(br.readLine());
 			for(int j = 0; j < k; j++) {
 				String[] temp = br.readLine().split(" ");
@@ -20,31 +22,54 @@ public class Main {
 				int n = Integer.parseInt(temp[1]);
 				if(instruction == 'I') {
 					que.add(n);
-					if(map.containsKey(1)) {
-						if(map.get(1) < n) {
-							map.put(1, n);
-						}
-					}else {
-						map.put(1, n);
-					}
+					que2.add(n);
 				} else if(instruction == 'D') {
 					if(n == 1) {
-						que.remove(map.get(1));
+						try {
+							int top = top(que2, deletedQue2);
+							deletedQue2.add(top);
+							deletedQue.add(top);
+						} catch(Exception e) {
+							
+						}
+						
 					}else if(n == -1) {
-						que.poll();
+						try {
+							int top = top(que, deletedQue);
+							deletedQue.add(top);
+							deletedQue2.add(top);
+						} catch(Exception e) {
+							
+						}
+						
 					}
 				}
 				
 			}
-			if(que.isEmpty()) {
+			int max = 0;
+			int min = 0;
+			try {
+				max = top(que2, deletedQue2);
+			} catch(Exception e) {
 				System.out.println("EMPTY");
-			}else {
-				System.out.println(que.poll());
+				continue;
 			}
+			try {
+				min = top(que, deletedQue);
+			} catch(Exception e) {
+			}
+			System.out.println(max + " " + min);
 			
 		}
-		
-		
+	}
+	
+	static int top(PriorityQueue<Integer> que, PriorityQueue<Integer> deletedQue) {
+		while (deletedQue.size() > 0 && que.peek().equals(deletedQue.peek()))
+        {
+            que.poll();
+            deletedQue.poll();
+        }
+		return que.peek();
 	}
 
 }

@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Stack;
 
@@ -10,8 +9,7 @@ class Ground{
 	int nurtient;
 	int increase;
 	Deque<Integer> tree = new ArrayDeque<>();
-	ArrayList<Integer> dead = new ArrayList<>();
-
+	
 	public Ground(int increase) {
 		this.nurtient = 5;
 		this.increase = increase;
@@ -77,7 +75,7 @@ public class Main {
 						}
 					}
 					for(int z = index; z < size; z++) {
-						matrix[i][j].dead.add(matrix[i][j].tree.pollLast());
+						matrix[i][j].nurtient += matrix[i][j].tree.pollLast() / 2;
 					}
 					while(!grow.isEmpty()) {
 						matrix[i][j].tree.offerFirst(grow.pop());
@@ -87,17 +85,6 @@ public class Main {
 			}
 		}
 
-		for(int i = 1; i <= N; i++) { //여름
-			for(int j = 1; j <= N; j++) {
-				if(!matrix[i][j].dead.isEmpty()) {
-					for(int nutr : matrix[i][j].dead) {
-						matrix[i][j].nurtient += nutr / 2;
-					}
-					matrix[i][j].dead.clear();
-				}
-			}
-
-		}
 
 		for(int i = 1; i <= N; i++) { //가을
 			for(int j = 1; j <= N; j++) {

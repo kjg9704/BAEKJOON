@@ -46,17 +46,17 @@ public class Main {
 			int y = Integer.parseInt(temp[1]);
 			arr[i + 1] = new Point(x, y);
 		}
-		for(int i = 0; i < N; i++) {
-			parents[i + 1] = i + 1;
+		for(int i = 0; i <= N; i++) {
+			parents[i] = i;
 		}
 		for(int i = 0; i < M; i++) {
 			temp = br.readLine().split(" ");
 			int start = Integer.parseInt(temp[0]);
 			int end = Integer.parseInt(temp[1]);
-			parents[Math.max(start, end)] = Math.min(start, end);
+			parents[start] = end;
 		}
 		
-		for(int i = 1; i <= N - 1; i++) {
+		for(int i = 1; i < N; i++) {
 			for(int j = i + 1; j <= N; j++) {
 				double distance = getDistance(arr[i], arr[j]);
 				Edge edge = new Edge(i, j, distance);
@@ -67,7 +67,7 @@ public class Main {
 			Edge now = pQue.poll();
 			union(now);
 		}
-		System.out.printf("%.2f", (double) Math.round(result * 100) / 100);
+		System.out.println(String.format("%.2f", result));
 	}
 	
 	static int find(int u) {
@@ -81,7 +81,7 @@ public class Main {
 		int a = find(edge.start);
 		int b = find(edge.end);
 		if(a == b) return;
-		parents[b] = a;
+		parents[a] = b;
 		result += edge.distance;
 	}
 	
@@ -90,6 +90,6 @@ public class Main {
 		long x2x = x2.x;
 		long x1y = x1.y;
 		long x2y = x2.y;
-		return Math.sqrt((x1x - x2x) * (x1x - x2x) + (x1y - x2y) * (x1y - x2y));
+		return Math.sqrt(Math.pow(x1x - x2x, 2) + Math.pow(x1y - x2y, 2));
 	}
 }

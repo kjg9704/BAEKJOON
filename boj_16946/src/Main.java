@@ -25,8 +25,6 @@ public class Main {
 		
 		int[][] empty_group = new int[N][M];
 		
-		int[] group_cnt = new int[N * M + 1];
-		
 		Point[] group_start = new Point[N * M + 1];
 		
 		int[][] result = new int[N][M];
@@ -88,8 +86,6 @@ public class Main {
 						result[now.x][now.y] += cnt;
 						visited[now.x][now.y] = false;
 					}
-					group_cnt[group] = cnt;
-					group++;
 				}
 			}
 		}

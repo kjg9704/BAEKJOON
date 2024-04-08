@@ -26,15 +26,11 @@ public class Main {
 		PriorityQueue<Problem> pq = new PriorityQueue<>();
 		PriorityQueue<Integer> cups_pq = new PriorityQueue<>();
 
-		
-
-		int last = 0;
 		for(int i = 0; i < N; i++) {
 			String[] input = br.readLine().split(" ");
 			int dead = Integer.parseInt(input[0]);
 			int cups = Integer.parseInt(input[1]);
 			pq.add(new Problem(dead, cups));
-			last = Math.max(last, dead);
 		}
 		
 		int result = 0;
